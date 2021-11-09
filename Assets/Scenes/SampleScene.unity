@@ -5567,6 +5567,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3585713960523734818, guid: 7a832a080ce694b65a28e96d39fe8444, type: 3}
+      propertyPath: runSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6306761270761538729, guid: 7a832a080ce694b65a28e96d39fe8444, type: 3}
       propertyPath: m_Name
       value: Player
@@ -5613,10 +5617,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6306761270761538735, guid: 7a832a080ce694b65a28e96d39fe8444, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7522399712241843418, guid: 7a832a080ce694b65a28e96d39fe8444, type: 3}
-      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
