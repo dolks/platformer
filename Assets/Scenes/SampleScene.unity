@@ -176,7 +176,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4062,7 +4062,7 @@ GameObject:
   - component: {fileID: 1342719865}
   - component: {fileID: 1342719867}
   - component: {fileID: 1342719866}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Platforms Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5567,6 +5567,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1870093107, guid: 7a832a080ce694b65a28e96d39fe8444, type: 3}
+      propertyPath: m_GravityScale
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870093107, guid: 7a832a080ce694b65a28e96d39fe8444, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3585713960523734818, guid: 7a832a080ce694b65a28e96d39fe8444, type: 3}
+      propertyPath: jumpSpeed
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 6306761270761538729, guid: 7a832a080ce694b65a28e96d39fe8444, type: 3}
       propertyPath: m_Name
       value: Player
@@ -5577,11 +5589,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6306761270761538735, guid: 7a832a080ce694b65a28e96d39fe8444, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5.02
       objectReference: {fileID: 0}
     - target: {fileID: 6306761270761538735, guid: 7a832a080ce694b65a28e96d39fe8444, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.44
       objectReference: {fileID: 0}
     - target: {fileID: 6306761270761538735, guid: 7a832a080ce694b65a28e96d39fe8444, type: 3}
       propertyPath: m_LocalPosition.z
