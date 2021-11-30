@@ -16,8 +16,8 @@ TagManager:
   - Background
   - Bounce
   - Enemy
-  - 
-  - 
+  - Hazard
+  - Projectile
   - 
   - 
   - 
@@ -58,4 +58,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2733410787
+    locked: 0
+  - name: Projectile
+    uniqueID: 3084752493
     locked: 0

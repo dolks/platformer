@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float runSpeed = 10;
     [SerializeField] float jumpSpeed = 25;
     [SerializeField] float climbSpeed = 25;
+    [SerializeField] float bulletSpeed = 7f;
+    [SerializeField] GameObject magicBulletPrefab;
+    [SerializeField] GameObject gun;
     Animator playerAnimator;
     Collider2D playerCollider2D;
     Collider2D feetCollider2D;
@@ -18,9 +21,11 @@ public class PlayerMovement : MonoBehaviour
     bool isAlive = true;
     const string IS_RUNNING_ANIMATION_PARAM = "isRunning";
     const string IS_CLIMBING_ANIMATION_PARAM = "isClimbing";
+    const string DEAD_ANIMATION_PARAM = "Dead";
     const string GROUND_LAYER_NAME = "Ground";
     const string LADDER_LAYER_NAME = "Ladder";
     const string ENEMY_LAYER_NAME = "Enemy";
+    const string HAZARD_LAYER_NAME = "Hazard";
     // Start is called before the first frame update
     void Start()
     {
@@ -53,12 +58,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (playerCollider2D.IsTouchingLayers(LayerMask.GetMask(ENEMY_LAYER_NAME))) { Die(); }
+        if (playerCollider2D.IsTouchingLayers(
+            LayerMask.GetMask(
+                ENEMY_LAYER_NAME,
+                HAZARD_LAYER_NAME)
+                )
+            )
+        {
+            Die();
+        }
     }
 
     private void Die()
     {
         isAlive = false;
+        playerAnimator.SetTrigger(DEAD_ANIMATION_PARAM);
+        playerRigidbody2D.velocity = new Vector2(0, 0);
     }
 
     void OnMove(InputValue value)
@@ -76,6 +91,14 @@ public class PlayerMovement : MonoBehaviour
         if (value.isPressed)
         {
             playerRigidbody2D.velocity += new Vector2(0, jumpSpeed);
+        }
+    }
+
+    void OnFire(InputValue value)
+    {
+        if (value.isPressed && isAlive)
+        {
+            GameObject bullet = Instantiate(magicBulletPrefab, gun.transform.position, transform.rotation);
         }
     }
 
