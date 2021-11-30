@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,11 +13,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float climbSpeed = 25;
     Animator playerAnimator;
     Collider2D playerCollider2D;
+    Collider2D feetCollider2D;
     float playerGravityAtStart;
+    bool isAlive = true;
     const string IS_RUNNING_ANIMATION_PARAM = "isRunning";
     const string IS_CLIMBING_ANIMATION_PARAM = "isClimbing";
     const string GROUND_LAYER_NAME = "Ground";
     const string LADDER_LAYER_NAME = "Ladder";
+    const string ENEMY_LAYER_NAME = "Enemy";
     // Start is called before the first frame update
     void Start()
     {
@@ -24,14 +28,18 @@ public class PlayerMovement : MonoBehaviour
         playerGravityAtStart = playerRigidbody2D.gravityScale;
         playerAnimator = GetComponent<Animator>();
         playerCollider2D = GetComponent<CapsuleCollider2D>();
+        feetCollider2D = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Run();
-        FlipSprite();
-        Climb();
+        if (isAlive)
+        {
+            Run();
+            FlipSprite();
+            Climb();
+        }
     }
 
     private void Run()
@@ -43,6 +51,16 @@ public class PlayerMovement : MonoBehaviour
         playerAnimator.SetBool(IS_RUNNING_ANIMATION_PARAM, true);
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (playerCollider2D.IsTouchingLayers(LayerMask.GetMask(ENEMY_LAYER_NAME))) { Die(); }
+    }
+
+    private void Die()
+    {
+        isAlive = false;
+    }
+
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
@@ -50,7 +68,11 @@ public class PlayerMovement : MonoBehaviour
 
     void OnJump(InputValue value)
     {
-        if (!playerCollider2D.IsTouchingLayers(LayerMask.GetMask(GROUND_LAYER_NAME))) { return; }
+        if (!feetCollider2D.IsTouchingLayers(LayerMask.GetMask(GROUND_LAYER_NAME))
+            || !isAlive)
+        {
+            return;
+        }
         if (value.isPressed)
         {
             playerRigidbody2D.velocity += new Vector2(0, jumpSpeed);
@@ -72,7 +94,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Climb()
     {
-
         if (!playerCollider2D.IsTouchingLayers(LayerMask.GetMask(LADDER_LAYER_NAME))) {
             playerAnimator.SetBool(IS_CLIMBING_ANIMATION_PARAM, false);
             playerRigidbody2D.gravityScale = playerGravityAtStart;
