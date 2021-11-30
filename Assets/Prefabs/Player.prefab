@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6306761272282685341}
   - component: {fileID: 3585713960523734818}
   - component: {fileID: 3536388757301411028}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,11 +70,11 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 6
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &6306761272282685341
 MonoBehaviour:
@@ -119,6 +119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runSpeed: 10
+  jumpSpeed: 20
+  climbSpeed: 5
 --- !u!70 &3536388757301411028
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -145,7 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6306761270894191989}
   - component: {fileID: 6306761270894191988}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +206,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1561556509
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 1857188551261513057, guid: 85aebf96f0b6e4e2d99db116375e35f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
