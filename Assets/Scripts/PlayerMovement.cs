@@ -99,6 +99,7 @@ public class PlayerMovement : MonoBehaviour
         if (value.isPressed && isAlive)
         {
             GameObject bullet = Instantiate(magicBulletPrefab, gun.transform.position, transform.rotation);
+            bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(bulletSpeed, 0f);
         }
     }
 
