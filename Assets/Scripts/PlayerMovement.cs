@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     const string LADDER_LAYER_NAME = "Ladder";
     const string ENEMY_LAYER_NAME = "Enemy";
     const string HAZARD_LAYER_NAME = "Hazard";
+    const string EXIT_LAYER_NAME = "Exit";
     // Start is called before the first frame update
     void Start()
     {
@@ -69,11 +71,27 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (playerCollider2D.IsTouchingLayers(LayerMask.GetMask(EXIT_LAYER_NAME)))
+        {
+            isAlive = false;
+            StartCoroutine(WaitBeforeLoadNextLevel());
+        }
+    }
+
+    IEnumerator WaitBeforeLoadNextLevel()
+    {
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
     private void Die()
     {
         isAlive = false;
         playerAnimator.SetTrigger(DEAD_ANIMATION_PARAM);
         playerRigidbody2D.velocity = new Vector2(0, 0);
+        FindObjectOfType<GameSession>().ProcessPlayerDeath();
     }
 
     void OnMove(InputValue value)
@@ -99,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
         if (value.isPressed && isAlive)
         {
             GameObject bullet = Instantiate(magicBulletPrefab, gun.transform.position, transform.rotation);
-            bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(bulletSpeed, 0f);
+            bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(bulletSpeed * transform.localScale.x, 0f);
         }
     }
 
