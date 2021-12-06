@@ -64,9 +64,10 @@ public class PlayerMovement : MonoBehaviour
             LayerMask.GetMask(
                 ENEMY_LAYER_NAME,
                 HAZARD_LAYER_NAME)
-                )
-            )
+                ) && isAlive
+            ) 
         {
+
             Die();
         }
     }
